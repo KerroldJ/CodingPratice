@@ -2,12 +2,16 @@ package BankAccountSystem;
 
 import java.util.Scanner;
 
+import BankAccountSystem.feature.account.CreateAccountMenu;
+import BankAccountSystem.services.UserAccountService;
+
 public class Menu {
 
-    private BankService bankService;
 
-    public Menu(BankService bankService) {
-        this.bankService = bankService;
+    private UserAccountService userAccountService;
+    
+    public Menu(UserAccountService userAccountService) {
+        this.userAccountService = userAccountService;
     }
 
     public void start() {
@@ -16,33 +20,23 @@ public class Menu {
         boolean running = true;
 
         while (running) {
-            System.out.println("Welcome to the Bank Account System!");
+            System.out.println("=================================");
+            System.out.println("      BANK ACCOUNT SYSTEM");
+            System.out.println("=================================");
             System.out.println("1. Create Account");
-            System.out.println("2. Exit");
-            System.out.print("Please select an option: ");
-
+            System.out.println("2. Deposit");
+            System.out.println("3. Withdraw");
+            System.out.println("4. Transfer");
+            System.out.println("5. View Account");
+            System.out.println("6. Exit");
+            System.out.print("Select option: ");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume the newline character
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
-                    System.out.print("Enter First Name: ");
-                    String firstName = scanner.nextLine();
-                    System.out.print("Enter Middle Name (or press Enter to skip): ");
-                    String middleName = scanner.nextLine();
-                    System.out.print("Enter Last Name: ");
-                    String lastName = scanner.nextLine();
-                    System.out.print("Enter Initial Deposit Amount: ");
-                    double initialDeposit = scanner.nextDouble();
-
-                    scanner.nextLine(); // Consume the newline character
-                    bankService.createAccount(
-                        firstName,
-                        middleName != null && !middleName.isEmpty() ? middleName : null,
-                        lastName,
-                        initialDeposit
-                    );
+                   new CreateAccountMenu().start(userAccountService, scanner);
                     break;
                 case 2:
                     running = false;
