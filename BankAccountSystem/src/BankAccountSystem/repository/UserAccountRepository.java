@@ -13,8 +13,8 @@ public class UserAccountRepository {
 
         String sql = """
                     INSERT INTO accounts
-                    (uuid, first_name, middle_name, last_name, balance)
-                    VALUES (?, ?, ?, ?, ?)
+                    (uuid, first_name, middle_name, last_name, email, balance, password)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
                 """;
 
         try (
@@ -25,7 +25,9 @@ public class UserAccountRepository {
             statement.setString(2, userAccount.getFirstName());
             statement.setString(3, userAccount.getMiddleName());
             statement.setString(4, userAccount.getLastName());
-            statement.setDouble(5, userAccount.getBalance());
+            statement.setString(5, userAccount.getEmail());
+            statement.setDouble(6, userAccount.getBalance());
+            statement.setString(7, userAccount.getPassword());
 
             int rows = statement.executeUpdate();
 
@@ -56,6 +58,8 @@ public class UserAccountRepository {
                         resultSet.getString("first_name"),
                         resultSet.getString("middle_name"),
                         resultSet.getString("last_name"),
+                        resultSet.getString("email"),
+                        resultSet.getString("password"),
                         resultSet.getDouble("balance"));
             }
 

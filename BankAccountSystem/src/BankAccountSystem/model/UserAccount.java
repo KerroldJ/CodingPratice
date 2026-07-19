@@ -7,14 +7,18 @@ public class UserAccount {
     private String firstName;
     private String middleName;
     private String lastName;
+    private String email;
+    private String password;
     private double balance;
     private UUID uuid;
 
-    public UserAccount(UUID uuid, String firstName, String middleName, String lastName, double balance) {
+    public UserAccount(UUID uuid, String firstName, String middleName, String lastName, String email, String password, double balance) {
         this.uuid = uuid;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
+        this.email = email;
+        this.password = password;
         this.balance = balance;
     }
 
@@ -52,5 +56,21 @@ public class UserAccount {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

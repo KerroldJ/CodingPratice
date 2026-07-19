@@ -1,9 +1,11 @@
 package BankAccountSystem;
 
+import BankAccountSystem.controller.acccount.UserAccountController;
 import BankAccountSystem.db.DatabaseConnection;
 import BankAccountSystem.db.DatabaseInitializer;
 import BankAccountSystem.repository.UserAccountRepository;
 import BankAccountSystem.services.UserAccountService;
+import BankAccountSystem.ui.MainFrame;
 
 public class Main {
    public static void main(String[] args) {
@@ -14,9 +16,10 @@ public class Main {
       UserAccountRepository repository = new UserAccountRepository();
       UserAccountService userAccountService = new UserAccountService(repository);
 
-      Menu menu = new Menu(userAccountService);
+      // Inject the Application Service into the Controller
+      UserAccountController controller = new UserAccountController(userAccountService);
 
-      menu.start();
+      new MainFrame(controller);
 
    }
 }

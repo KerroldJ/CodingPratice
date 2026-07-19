@@ -1,7 +1,10 @@
 #!/bin/bash
 
-# Compile all Java files
-javac -cp "lib/postgresql-42.7.13.jar" -d bin $(find src -name "*.java")
+# Create the bin directory if it doesn't exist
+mkdir -p bin
+
+# Compile all Java files with ALL JARs in lib/
+javac -cp "lib/*" -d bin $(find src -name "*.java")
 
 # Stop if compilation failed
 if [ $? -ne 0 ]; then
@@ -10,4 +13,4 @@ if [ $? -ne 0 ]; then
 fi
 
 # Run the application
-java -cp "bin:lib/postgresql-42.7.13.jar" BankAccountSystem.Main
+java -cp "bin:lib/*" BankAccountSystem.Main

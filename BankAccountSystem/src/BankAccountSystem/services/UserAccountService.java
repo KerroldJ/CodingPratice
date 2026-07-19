@@ -2,6 +2,7 @@ package BankAccountSystem.services;
 
 import java.util.UUID;
 
+import org.mindrot.jbcrypt.BCrypt;
 import BankAccountSystem.model.UserAccount;
 import BankAccountSystem.repository.UserAccountRepository;
 
@@ -17,11 +18,12 @@ public class UserAccountService {
         return repository.findById(uuid);
     }
 
-    public void createUserAccount(String firstName, String middleName, String lastName, double initialDeposit) {
+    public void createUserAccount(String firstName, String middleName, String lastName, double initialDeposit, String email, String password) {
         
-        UserAccount userAccount = new UserAccount( UUID.randomUUID(), firstName, middleName, lastName, initialDeposit);
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        UserAccount userAccount = new UserAccount( UUID.randomUUID(), firstName, middleName, lastName, email, hashedPassword, initialDeposit);
+
         repository.save(userAccount);
-        System.out.println("User account created for: " + firstName + " " + (middleName != null ? middleName + " " : "") + lastName + " with initial deposit of Php" + initialDeposit);
     }
 
     public void updateUserAccount(UserAccount userAccount) {
